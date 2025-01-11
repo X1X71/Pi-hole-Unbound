@@ -1,5 +1,5 @@
 # How to set up Unbound as a recursive DNS resolver on Pi-hole 
-A guide to install Pi-hole with Unbound DNS resolver for enhanced privacy and security
+A guide to install Unbound DNS resolver in combination with Pi-hole for enhanced privacy and security 
 
 **Important Information:**
 
