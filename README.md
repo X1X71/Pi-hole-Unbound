@@ -1,4 +1,4 @@
-# How to set up Unbound as a recursive DNS resolver on Pi-hole 
+# How to set up Unbound (recursive DNS resolver) on Pi-hole 
 
 **Important Information:**
 
