@@ -9,7 +9,7 @@ This guide assues that you have a system running a Linux distribution with Pi-ho
 **What Is Unbound?:**
 
 
-Unbound is a fast, secure, and privacy-focused DNS resolver that can recursively query domain names, cache results for faster performance, and validate DNS responses using DNSSEC for security. Here's a quick summary:
+[Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) is a fast, secure, and privacy-focused DNS resolver that can recursively query domain names, cache results for faster performance, and validate DNS responses using DNSSEC for security. Here's a quick summary:
 
 **Key Features:**
 
