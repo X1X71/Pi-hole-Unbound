@@ -1,31 +1,34 @@
 # Pi-hole-Unbound
 A guide to install Pi-hole with Unbound DNS resolver for enhanced privacy and security
 
-Important Information
+Important Information:
+
 
 This guide assues that you have a system running a Linux distribution with Pi-hole already installed and configured.
 
-What Is Unbound?
+What Is Unbound?:
+
 
 Unbound is a fast, secure, and privacy-focused DNS resolver that can recursively query domain names, cache results for faster performance, and validate DNS responses using DNSSEC for security. Here's a quick summary:
 Key Features:
 
-    Recursive DNS Resolution: Unbound resolves domain names by querying authoritative DNS servers starting from the root.
-    Caching: It stores DNS responses in memory, speeding up subsequent queries.
-    DNSSEC Validation: Ensures DNS responses are authentic and not tampered with.
-    Privacy and Security: Runs locally to avoid third-party DNS providers, and supports DNS-over-HTTPS (DoH) and DNS-over-TLS (DoT) for encrypted queries.
-    Customizable: You can configure cache size, query behavior, and security features based on your needs.
+   Recursive DNS Resolution: Unbound resolves domain names by querying authoritative DNS servers starting from the root.
+   Caching: It stores DNS responses in memory, speeding up subsequent queries.
+   DNSSEC Validation: Ensures DNS responses are authentic and not tampered with.
+   Privacy and Security: Runs locally to avoid third-party DNS providers, and supports DNS-over-HTTPS (DoH) and DNS-over-TLS (DoT) for encrypted queries.
+   Customizable: You can configure cache size, query behavior, and security features based on your needs.
 
 Benefits:
 
-    Performance: Caching reduces query times for frequently accessed domains.
-    Privacy: Running your own resolver improves privacy by not relying on external DNS providers.
-    Security: DNSSEC validation helps protect against DNS spoofing and other attacks.
+   Performance: Caching reduces query times for frequently accessed domains.
+   Privacy: Running your own resolver improves privacy by not relying on external DNS providers.
+   Security: DNSSEC validation helps protect against DNS spoofing and other attacks.
 
 Unbound is ideal for improving DNS speed, privacy, and security, especially when used alongside tools like Pi-hole to block unwanted content.
 
-Setting Up Pi-hole as a Recursive DNS Server Solution
-Install Unbound Recursive DNS Resolver:
+
+How to install Unbound:
+
 
 On your Debian 12 system, install Unbound with the following command:
 
@@ -42,14 +45,15 @@ To update the root hints file, run:
 wget -O root.hints https://www.internic.net/domain/named.root
 sudo mv root.hints /var/lib/unbound/
 ```
-Configure Unbound
+How to configure Unbound:
 
-Next, create and edit the Unbound configuration file:
+
+Create and edit the Unbound configuration file:
 
 ```
 sudo nano /etc/unbound/unbound.conf.d/pi-hole.conf
 ```
-Add the following configuration content to the file:
+Add the following content to the configuration file:
 
 ```
 server:
@@ -102,9 +106,10 @@ server:
     private-address: fe80::/10
 ```
 
-To save the configuration using nano, press Ctrl + X, then press Y, and finally hit Enter.
+To write the changes to the file using nano, press Ctrl + O, then press Enter, and finally press Ctrl + X.
 
-Check Unbound Configuration for Errors
+How to check Unbound Configuration for Errors:
+
 
 This step is optional but recommended. You can check the configuration for errors using the following command:
 
@@ -112,9 +117,11 @@ This step is optional but recommended. You can check the configuration for error
 unbound-checkconf /etc/unbound/unbound.conf.d/pi-hole.conf
 ```
 It should return "no errors" if the configuration file is correct.
-Start the Unbound Service
 
-Start the Unbound service with:
+How to start the Unbound Service:
+
+
+Run the following command:
 
 ```
 sudo service unbound start
@@ -125,16 +132,20 @@ You can check if your DNS server is resolving domains correctly by running:
 dig pi-hole.net @127.0.0.1 -p 5335
 ```
 The first few queries may be slower, but subsequent queries should resolve in under 1 millisecond.
-Test DNSSEC Validation
 
-You can test DNSSEC validation by running:
+How to test DNSSEC Validation:
+
+
+Run the following commands:
 
 ```
 dig sigfail.verteiltesysteme.net @127.0.0.1 -p 5335
 dig sigok.verteiltesysteme.net @127.0.0.1 -p 5335
 ```
 The first query should return a SERVFAIL status with no IP address, while the second should return a NOERROR status along with an IP address.
-Configure Pi-hole to Use Unbound
+
+How to configure Pi-hole to Use Unbound:
+
 
    Log in to the Pi-hole admin interface.
    Go to Settings → DNS.
@@ -144,7 +155,9 @@ Configure Pi-hole to Use Unbound
    In Interface Listening Behavior, select Listen on all interfaces unless you're setting up a VPN server. For a typical home network, the default should work fine.
    Click Save.
 
-Troubleshooting
+
+How to troubleshoot:
+
 
 If Unbound fails to start or throws an error, use the following command to check its status:
 
@@ -167,10 +180,10 @@ To edit the configuration, use:
 ```
 sudo nano /etc/unbound/unbound.conf.d/pi-hole.conf
 ```
-Save the changes (Ctrl + X → Y → Enter) and then reboot your system:
+Save the changes (Ctrl + O → Enter → Ctrl + X) and then reboot your system:
 
 ```
-sudo reboot
+sudo shutdown now -r
 ```
-This version assumes you're using Debian 12 stable and provides clear instructions to set up Pi-hole with Unbound on your system.
+
 
