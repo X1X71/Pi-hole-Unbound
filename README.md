@@ -1,33 +1,40 @@
 # How to set up Unbound as a recursive DNS resolver on Pi-hole 
 A guide to install Pi-hole with Unbound DNS resolver for enhanced privacy and security
 
-Important Information:
+**Important Information:**
 
 
-This guide assues that you have a system running a Linux distribution with Pi-hole already installed and configured.
+This guide assues that you have a system running a Linux distribution with Pi-hole already installed and properly configured. In this guide, Debian 12 Stable is the operating system used.
 
-What Is Unbound?:
+**What Is Unbound?:**
 
 
 Unbound is a fast, secure, and privacy-focused DNS resolver that can recursively query domain names, cache results for faster performance, and validate DNS responses using DNSSEC for security. Here's a quick summary:
-Key Features:
+
+**Key Features:**
 
    Recursive DNS Resolution: Unbound resolves domain names by querying authoritative DNS servers starting from the root.
+
    Caching: It stores DNS responses in memory, speeding up subsequent queries.
+
    DNSSEC Validation: Ensures DNS responses are authentic and not tampered with.
+
    Privacy and Security: Runs locally to avoid third-party DNS providers, and supports DNS-over-HTTPS (DoH) and DNS-over-TLS (DoT) for encrypted queries.
+
    Customizable: You can configure cache size, query behavior, and security features based on your needs.
 
-Benefits:
+**Benefits:**
 
    Performance: Caching reduces query times for frequently accessed domains.
+
    Privacy: Running your own resolver improves privacy by not relying on external DNS providers.
+
    Security: DNSSEC validation helps protect against DNS spoofing and other attacks.
 
 Unbound is ideal for improving DNS speed, privacy, and security, especially when used alongside tools like Pi-hole to block unwanted content.
 
 
-How to install Unbound:
+**How to install Unbound:**
 
 
 On your Debian 12 system, install Unbound with the following command:
@@ -45,7 +52,7 @@ To update the root hints file, run:
 wget -O root.hints https://www.internic.net/domain/named.root
 sudo mv root.hints /var/lib/unbound/
 ```
-How to configure Unbound:
+**How to configure Unbound:**
 
 
 Create and edit the Unbound configuration file:
@@ -108,7 +115,7 @@ server:
 
 To write the changes to the file using nano, press Ctrl + O, then press Enter, and finally press Ctrl + X.
 
-How to check Unbound Configuration for Errors:
+**How to check Unbound Configuration for Errors:**
 
 
 This step is optional but recommended. You can check the configuration for errors using the following command:
@@ -118,7 +125,7 @@ unbound-checkconf /etc/unbound/unbound.conf.d/pi-hole.conf
 ```
 It should return "no errors" if the configuration file is correct.
 
-How to start the Unbound Service:
+**How to start the Unbound Service:**
 
 
 Run the following command:
@@ -133,7 +140,7 @@ dig pi-hole.net @127.0.0.1 -p 5335
 ```
 The first few queries may be slower, but subsequent queries should resolve in under 1 millisecond.
 
-How to test DNSSEC Validation:
+**How to test DNSSEC Validation:**
 
 
 Run the following commands:
@@ -144,7 +151,7 @@ dig sigok.verteiltesysteme.net @127.0.0.1 -p 5335
 ```
 The first query should return a SERVFAIL status with no IP address, while the second should return a NOERROR status along with an IP address.
 
-How to configure Pi-hole to Use Unbound:
+**How to configure Pi-hole to Use Unbound:**
 
 
    Log in to the Pi-hole admin interface.
@@ -156,7 +163,7 @@ How to configure Pi-hole to Use Unbound:
    Click Save.
 
 
-How to troubleshoot:
+**How to troubleshoot:**
 
 
 If Unbound fails to start or throws an error, use the following command to check its status:
