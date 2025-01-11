@@ -114,7 +114,7 @@ server:
 ```
 
 To write the changes to the file using nano, press Ctrl + O, then press Enter, and finally press Ctrl + X.
-
+ 
 **How to check Unbound Configuration for Errors:**
 
 
