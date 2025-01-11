@@ -155,11 +155,17 @@ The first query should return a SERVFAIL status with no IP address, while the se
 
 
    Log in to the Pi-hole admin interface.
+
    Go to Settings → DNS.
+
    Select Custom 1 (IPv4) under Upstream DNS Servers and enter 127.0.0.1#5335.
+
    Uncheck all other DNS options in the Upstream DNS Servers section.
+
    Under the Advanced DNS Settings section, ensure that Never forward reverse lookups for private IP ranges and Never forward non-FQDNs are checked. Also, disable DNSSEC in Pi-hole as Unbound will handle it for you.
+
    In Interface Listening Behavior, select Listen on all interfaces unless you're setting up a VPN server. For a typical home network, the default should work fine.
+
    Click Save.
 
 
